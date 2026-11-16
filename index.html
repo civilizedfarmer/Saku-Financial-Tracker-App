@@ -5,20 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Saku</title>
 <meta name="description" content="Saku is a personal money tracker in rupiah. Your data stays on your phone.">
-<meta name="theme-color" content="#0B0E14">
+<meta name="theme-color" content="#E9EAEE">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Saku">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: one calm column of single-layer cards on deep navy, section titles sitting above each card,
-   plain label-and-value rows, and a docked five-tab bar with labels. One dark look by choice. */
+/* Layout: one calm column of frosted-glass cards floating over a soft grey wash, section titles above each card,
+   plain label-and-value rows, and a floating glass tab bar with labels. One light, monochrome look by choice. */
 :root {
   color-scheme: dark;
   --bg: #0B0E14; --paper: #151A23; --ink: #EEF1F6; --muted: #8E98AA; --rule: rgba(255,255,255,.08); --field: #1F2632;
@@ -205,6 +202,89 @@ textarea.inp { height: auto; padding: 14px; resize: none; line-height: 1.45; }
 
 #toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(96px + env(safe-area-inset-bottom, 0px)); z-index: 40; max-width: calc(100% - 32px); background: var(--ink); color: var(--bg); padding: 11px 16px; border-radius: 14px; display: flex; gap: 14px; align-items: center; font-size: .9rem; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,.5); animation: up .2s ease; }
 #toast button { font-weight: 800; text-decoration: underline; text-underline-offset: 3px; color: inherit; }
+
+/* ---- Light monochrome glass ---- */
+:root {
+  color-scheme: light;
+  --bg: #E9EAEE; --paper: rgba(255,255,255,.56); --ink: #0E0F12; --muted: #686B73; --rule: rgba(14,15,18,.09); --field: rgba(14,15,18,.055);
+  --accent: #0E0F12; --accent-ink: #FFFFFF; --exp: #0E0F12; --inc: #0E0F12; --warn: #4A4D55;
+  --p0: #17181C; --p1: #3D4047; --p2: #5E626B; --p3: #7F838C; --p4: #A0A4AC; --p5: #BCBFC6; --p6: #2B2D33; --p7: #8E929A;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --edge: rgba(255,255,255,.9);
+  --glass-shadow: 0 10px 30px rgba(20,22,30,.07), inset 0 1px 0 rgba(255,255,255,.95);
+  --blur: blur(22px) saturate(1.6);
+}
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(70% 38% at 10% 0%, #FFFFFF 0, transparent 70%),
+    radial-gradient(55% 32% at 105% 22%, #CDD0D8 0, transparent 70%),
+    radial-gradient(60% 36% at -5% 62%, #D2D5DC 0, transparent 70%),
+    radial-gradient(60% 40% at 95% 100%, #FFFFFF 0, transparent 70%),
+    #E9EAEE; }
+.slip, .note, .search, .iconbtn, .btn.soft, .wcard {
+  background: var(--paper); border: 1px solid var(--edge); box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); }
+.slip { border-radius: 26px; }
+.note { border-radius: 18px; }
+.search { border-radius: 99px; }
+.search:focus-within { border-color: var(--ink); }
+.iconbtn { border-radius: 50%; }
+.month .iconbtn { border-radius: 50%; }
+.btn { border-radius: 99px; }
+.btn.small { border-radius: 99px; }
+.link { text-decoration: underline; text-underline-offset: 3px; }
+.badge { background: rgba(255,255,255,.7); border: 1px solid var(--edge); box-shadow: 0 2px 8px rgba(20,22,30,.06); }
+.mi { border-radius: 50%; background: rgba(255,255,255,.7); border: 1px solid var(--edge); box-shadow: 0 2px 8px rgba(20,22,30,.06); }
+.neg { font-weight: 800; }
+.stack i { border-radius: 99px; }
+
+/* floating glass tab bar */
+.tabbar { left: 50%; right: auto; transform: translateX(-50%); bottom: calc(10px + env(safe-area-inset-bottom, 0px)); width: min(calc(100% - 24px), 460px);
+  border-radius: 32px; border: 1px solid var(--edge); background: rgba(255,255,255,.5); padding: 7px 6px;
+  backdrop-filter: blur(26px) saturate(1.8); -webkit-backdrop-filter: blur(26px) saturate(1.8);
+  box-shadow: 0 14px 40px rgba(20,22,30,.16), inset 0 1px 0 rgba(255,255,255,.95); }
+.tab { border-radius: 24px; padding: 7px 2px 6px; }
+.tab[aria-current="page"] { color: var(--ink); background: rgba(14,15,18,.07); }
+.tab.add span { box-shadow: 0 6px 16px rgba(14,15,18,.28); }
+.app { padding-bottom: 124px; }
+
+/* sheets */
+.scrim { background: rgba(20,22,30,.26); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.sheet { background: rgba(243,244,247,.8); border: 1px solid var(--edge); border-bottom: 0; border-radius: 32px 32px 0 0;
+  backdrop-filter: blur(36px) saturate(1.8); -webkit-backdrop-filter: blur(36px) saturate(1.8); box-shadow: 0 -10px 40px rgba(20,22,30,.14); }
+.sheet::before { background: rgba(14,15,18,.18); }
+.sheet .slip { background: rgba(255,255,255,.55); }
+.sheet .iconbtn, .sheet .btn.soft { background: rgba(255,255,255,.6); }
+.wcard { background: rgba(255,255,255,.55); border-radius: 22px; }
+.wcard .nm span { background: rgba(255,255,255,.8); border: 1px solid var(--edge); }
+
+/* forms */
+.inp, .amt-in.sm { background: rgba(255,255,255,.6); border: 1px solid var(--edge); border-radius: 16px; box-shadow: inset 0 1px 2px rgba(20,22,30,.05); }
+.inp:focus, .amt-in.sm:focus-within { border-color: var(--ink); }
+.amt-in:focus-within { border-bottom-color: var(--ink); }
+.quick button { background: rgba(255,255,255,.6); border: 1px solid var(--edge); color: var(--ink); }
+.chip { background: rgba(255,255,255,.6); border: 1px solid var(--edge); box-shadow: 0 2px 8px rgba(20,22,30,.05); }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #FFFFFF; font-weight: 600; }
+.emo { background: rgba(255,255,255,.6); border: 1px solid var(--edge); }
+.emo[aria-pressed="true"] { border: 2px solid var(--ink); }
+.sw { border: 0; }
+.sw[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 3px; }
+.toggle i { background: rgba(14,15,18,.12); }
+.toggle i::after { background: #FFFFFF; box-shadow: 0 1px 4px rgba(20,22,30,.25); }
+.toggle[aria-pressed="true"] i { background: var(--ink); }
+
+/* insights */
+.pill { background: rgba(14,15,18,.07); color: var(--ink); }
+.meter5 i { background: rgba(14,15,18,.08); }
+.meter5 i.on { background: var(--ink); }
+.bar { background: rgba(14,15,18,.08); }
+.cal div { background: rgba(255,255,255,.55); border: 1px solid var(--edge); }
+.cal div.l1 { background: rgba(14,15,18,.14); color: var(--ink); }
+.cal div.l2 { background: rgba(14,15,18,.5); color: #FFFFFF; border-color: transparent; }
+.cal div.l3 { background: var(--ink); color: #FFFFFF; border-color: transparent; }
+.cal div.blank { border: 0; box-shadow: none; }
+.badge, .chip > span, .emo, .wcard .nm span { filter: grayscale(1) contrast(1.08); }
+#toast { background: rgba(14,15,18,.88); color: #FFFFFF; border-radius: 99px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(20,22,30,.25); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -768,7 +848,7 @@ textarea.inp { height: auto; padding: 14px; resize: none; line-height: 1.45; }
     var out = [sheetHead(w ? 'Edit wallet' : 'New wallet'), preview, field('Wallet name', name), field('Type', type),
       h('div', { class: 'f' }, h('div', { class: 'cap', text: w ? 'Starting balance' : 'Current balance' }), amountInput('wBal', st.initial, function (n) { st.initial = n; })),
       h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Icon' }), emojiRow(st.emoji, function (e) { st.emoji = e; drawSheet(); })),
-      h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Colour' }), colorRow(st.color, function (i) { st.color = i; drawSheet(); })), btn];
+      h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Shade' }), colorRow(st.color, function (i) { st.color = i; drawSheet(); })), btn];
     if (w) {
       var used = 0; D.txns.forEach(function (t) { if (t.wallet === w.id || t.to === w.id) used++; });
       out.push(st.confirm
@@ -810,7 +890,7 @@ textarea.inp { height: auto; padding: 14px; resize: none; line-height: 1.45; }
     var out = [sheetHead(c ? 'Edit category' : 'New category'), h('div', { class: 'center' }, (function () { var b = badge(st.emoji, st.color); b.style.width = '72px'; b.style.height = '72px'; b.style.fontSize = '2rem'; b.style.display = 'inline-grid'; return b; })()),
       field('Name', name),
       h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Icon' }), emojiRow(st.emoji, function (e) { st.emoji = e; drawSheet(); })),
-      h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Colour' }), colorRow(st.color, function (i) { st.color = i; drawSheet(); }))];
+      h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Shade' }), colorRow(st.color, function (i) { st.color = i; drawSheet(); }))];
     if (kind === 'expense') out.push(h('div', { class: 'f' }, h('div', { class: 'cap', text: 'Monthly budget (leave empty for none)' }), amountInput('cBudget', st.budget, function (n) { st.budget = n; })));
     out.push(btn);
     if (c) out.push(h('button', { class: 'btn danger', type: 'button', text: 'Delete category', onclick: function () { closeSheet(); remove('categories', c.id).then(function () { toast('Category deleted', 'Undo', function () { save('categories', c).catch(fail); }); }, fail); } }));
@@ -928,7 +1008,7 @@ textarea.inp { height: auto; padding: 14px; resize: none; line-height: 1.45; }
     for (d = 1; d <= n; d++) {
       if (!per[d]) continue;
       var hgt = Math.max(2, B - y(per[d]));
-      m += '<rect x="' + (L + (d - 1) * step + 1.25).toFixed(1) + '" y="' + (B - hgt).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hgt.toFixed(1) + '" fill="' + (isNow && d === td ? 'var(--accent)' : 'var(--p1)') + '"/>';
+      m += '<rect x="' + (L + (d - 1) * step + 1.25).toFixed(1) + '" y="' + (B - hgt).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hgt.toFixed(1) + '" fill="' + (isNow && d === td ? 'var(--ink)' : 'var(--p4)') + '"/>';
     }
     if (prevAvg > 0) m += '<line x1="' + L + '" x2="' + R + '" y1="' + y(prevAvg).toFixed(1) + '" y2="' + y(prevAvg).toFixed(1) + '" stroke="var(--exp)" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/><text x="' + R + '" y="' + (y(prevAvg) - 4).toFixed(1) + '" text-anchor="end" style="fill: var(--exp)">' + prevName + ' daily average</text>';
     [1, 10, 20, n].forEach(function (dd) { m += '<text x="' + (L + (dd - 0.5) * step).toFixed(1) + '" y="126" text-anchor="middle">' + dd + '</text>'; });
